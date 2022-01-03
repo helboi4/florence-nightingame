@@ -1,0 +1,19 @@
+body{
+  background-color: pink;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.game-container{
+  margin: 0 auto;
+  margin-top:20px;
+  position: relative;
+  width: 960px;
+  height:600px;
+  outline: 4px solid white;
+}
+
+.game-container canvas {
+    image-rendering: pixelated;
+}

@@ -10,9 +10,17 @@ body{
   margin-top:20px;
   position: relative;
   width: 960px;
-  height:600px;
-  outline: 4px solid white;
+  height:640px;
+  outline: 4px solid navy;
+  display: grid;
+  grid-template-columns: repeat(30, 32px);
+  grid-template-rows: repeat(20, 32px);
 }
+
+.tile {
+   border-top: 2px solid navy;
+   border-left: 2px solid navy;
+ }
 
 .game-container canvas {
     image-rendering: pixelated;

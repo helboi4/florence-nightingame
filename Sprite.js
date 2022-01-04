@@ -60,7 +60,7 @@ export class Sprite{
 
     }
 
-    draw(ctx){
+    draw(ctx, cameraPerson){
         const x = this.gameObject.x - 16;
         const y = this.gameObject.y - 36;
 

@@ -1,9 +1,10 @@
 import { GameObject } from "./GameObject.js";
+import { utils } from "./utils.js";
+import { Person } from "./Person.js";
 
 export class OverworldMap {
     constructor(config){
         this.gameObjects = config.gameObjects;
-        
         this.image = new Image();
         this.image.src = config.imageSrc;
     }
@@ -17,13 +18,14 @@ window.OverworldMaps = {
     Hospital: {
         imageSrc: "./images/maps/wood.jpeg",
         gameObjects: {
-            hero: new GameObject({
-                x: 5,
-                y: 6,
+            hero: new Person({
+                isPlayerControlled: true,
+                x: utils.withGrid(5),
+                y: utils.withGrid(6),
             }),
-            npc1: new GameObject({
-            x: 7,
-            y: 9,
+            npc1: new Person({
+            x: utils.withGrid(7),
+            y: utils.withGrid(9),
             src: "./images/characters/people/npc1.png"
             })
         }

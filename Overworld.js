@@ -1,3 +1,4 @@
+import { DirectionInput } from "./DirectionInput.js";
 import { GameObject } from "./GameObject.js";
 import { OverworldMap } from "./OverworldMap.js";
 
@@ -7,6 +8,7 @@ export class Overworld {
         this.canvas = this.element.querySelector(".game-canvas");
         this.ctx = this.canvas.getContext("2d");
         this.map = null;
+        this.directionInput = null;
     }
 
     startGameLoop() {
@@ -14,9 +16,12 @@ export class Overworld {
 
             this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height)
 
-            this.map.drawBackground(this.ctx);
+            // this.map.drawBackground(this.ctx);
 
             Object.values(this.map.gameObjects).forEach(object =>{
+                object.update({
+                    arrow: this.directionInput.direction
+                });
                 object.sprite.draw(this.ctx);
             })
 
@@ -31,6 +36,9 @@ export class Overworld {
 
         this.map = new OverworldMap(window.OverworldMaps.Hospital);
         console.log(this.map)
+
+        this.directionInput = new DirectionInput();
+        this.directionInput.init();
 
         this.startGameLoop();
 

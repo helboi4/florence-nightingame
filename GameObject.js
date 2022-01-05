@@ -37,17 +37,15 @@ export class GameObject {
     async doBehaviourEvent(map){
 
         //Don't loop if cutscene is happening or there is no loop
-        if(map.isCutscenePlaying || this.behaviourLoop.length === 0){
+        if(map.isCutscenePlaying || this.behaviourLoop.length === 0 || this.isStanding){
             return;
         }
 
         let eventConfig = this.behaviourLoop[this.behaviourLoopIndex];
         eventConfig.who = this.id;
-        console.log(eventConfig)
 
         //Create an event instance out of our next config
         const eventHandler = new OverworldEvent(map, eventConfig)
-        console.log(eventHandler)
         await eventHandler.init();
 
         //Setting up the next in the loop event to fire

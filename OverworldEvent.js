@@ -52,6 +52,8 @@ export class OverworldEvent {
         document.addEventListener("PersonWalkingComplete", completeHandler)
     }
 
+    
+
     init() {
         return new Promise(resolve => {
             this[this.event.type](resolve)

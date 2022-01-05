@@ -5,6 +5,8 @@ export class Person extends GameObject {
     constructor(config){
         super(config);
         this.movingProgressRemaining = 0;
+        //a queued stand behaviour
+        this.isStanding = false;
 
         this.isPlayerControlled = config.isPlayerControlled || false;
 
@@ -50,10 +52,12 @@ export class Person extends GameObject {
         }
 
         if(behaviour.type === "stand"){
+            this.isStanding = true;
             setTimeout(() => {
                 utils.emitEvent("PersonStandComplete", {
                     whoId: this.id
                 })
+                this.isStanding = false;
             }, behaviour.time)
         }
     }

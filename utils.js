@@ -11,7 +11,6 @@ export const utils = {
         let x = initialX;
         let y = initialY;
         const size = 32;
-        console.log(direction)
         if (direction === "left"){
             x-=size;
         }

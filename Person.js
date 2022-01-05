@@ -38,6 +38,7 @@ export class Person extends GameObject {
                 return;
             }
             //Walk if it is free
+            state.map.moveWall(this.x, this.y, this.direction);
             this.movingProgressRemaining = 32;
         }
     }

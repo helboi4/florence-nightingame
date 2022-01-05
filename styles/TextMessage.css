@@ -11,7 +11,8 @@
 }
 .TextMessage_p {
   margin: 0;
-  font-size: 30px;
+  font-size: 28px;
+  word-wrap: break-word;
 }
 
 .TextMessage span {

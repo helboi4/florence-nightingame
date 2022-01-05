@@ -1,5 +1,5 @@
 import { RevealingText } from "./RevealingText.js";
-import {KeyPressListener} from "./KeyPressListener.js"
+import {KeyPressListener} from "../utils/KeyPressListener.js"
 
 export class TextMessage{
     constructor({text, onComplete}) {

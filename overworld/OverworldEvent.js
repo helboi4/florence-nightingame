@@ -1,4 +1,4 @@
-import { TextMessage } from "./TextMessage.js";
+import { TextMessage } from "../text/TextMessage.js";
 
 export class OverworldEvent {
     constructor(map, event){

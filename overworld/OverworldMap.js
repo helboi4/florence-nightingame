@@ -1,6 +1,6 @@
-import { GameObject } from "./GameObject.js";
-import { utils } from "./utils.js";
-import { Person } from "./Person.js";
+import { GameObject } from "../gameObjects/GameObject.js";
+import { utils } from "../utils/utils.js";
+import { Person } from "../gameObjects/Person.js";
 import { OverworldEvent } from "./OverworldEvent.js";
 
 export class OverworldMap {

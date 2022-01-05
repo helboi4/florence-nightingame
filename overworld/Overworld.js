@@ -1,5 +1,5 @@
-import { DirectionInput } from "./DirectionInput.js";
-import { GameObject } from "./GameObject.js";
+import { DirectionInput } from "../utils/DirectionInput.js";
+import { GameObject } from "../gameObjects/GameObject.js";
 import { OverworldMap } from "./OverworldMap.js";
 
 export class Overworld {
@@ -56,7 +56,7 @@ export class Overworld {
 
         this.map.startCutscene([
             {type:"textMessage", 
-            text: "20th September 1854 \n The Battle Of Alma. \n The British forced the Russians to retreat with superior firepower, however there were 2,000 British fatalities. A lot of soldiers will be coming in today. We're counting on you Florence. "}
+            text: "November 1854 --- Arrival of Florence  Secretary of War, Sidney Herbert, sent for you and your team to come here, Florence. The hospital is in total disarray and there is only a dirty bucket of water for sanitisation. We're not sure a fragile lady nurse like yourself can manage, but, nonetheless, we're counting on you. "}
         ])
 
     }

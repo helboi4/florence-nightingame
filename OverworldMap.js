@@ -1,6 +1,7 @@
 import { GameObject } from "./GameObject.js";
 import { utils } from "./utils.js";
 import { Person } from "./Person.js";
+import { OverworldEvent } from "./OverworldEvent.js";
 
 export class OverworldMap {
     constructor(config){
@@ -33,6 +34,19 @@ export class OverworldMap {
             //TODO: determine if object should mount
             object.mount(this)
         })
+    }
+
+    async startCutscene(events){
+        this.isCutscenePlaying = true;
+
+        //Start a loop of async events
+        for(let i = 0; i < events.length; i++){
+            const eventHandler = new OverworldEvent(this, events[i] )
+            await eventHandler.init();
+        }
+        //await each one
+
+        this.isCutscenePlaying = false;
     }
 
     addWall(x, y){

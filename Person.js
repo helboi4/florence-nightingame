@@ -21,7 +21,7 @@ export class Person extends GameObject {
             this.updatePosition();
         }else{
 
-            if( this.isPlayerControlled && this.movingProgressRemaining === 0 && state.arrow) {
+            if( !state.map.isCutscenePlaying && this.isPlayerControlled && this.movingProgressRemaining === 0 && state.arrow) {
                 this.startBehaviour(state, {
                     type: "walk",
                     direction: state.arrow,
@@ -36,6 +36,11 @@ export class Person extends GameObject {
         if(behaviour.type === "walk"){
             //Stop if space is not free
             if(state.map.isSpaceTaken(this.x, this.y, this.direction)){
+
+                behaviour.retry && setTimeout(() => {
+                    this.startBehaviour(state, behaviour)
+                }, 10);
+
                 return;
             }
             //Walk if it is free

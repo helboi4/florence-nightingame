@@ -54,13 +54,10 @@ export class Overworld {
 
         this.startGameLoop();
 
-        // this.map.startCutscene([
-        //     {who: "hero", type: "walk", direction: "down"},
-        //     {who:"hero", type: "walk", direction: "down"},
-        //     {who: "hero", type: "walk", direction: "right"},
-        //     {who: "npc1", type: "walk", direction: "up"},
-        //     {who: "npc1", type: "stand", direction: "left"}
-        // ])
+        this.map.startCutscene([
+            {type:"textMessage", 
+            text: "20th September 1854 \n The Battle Of Alma. \n The British forced the Russians to retreat with superior firepower, however there were 2,000 British fatalities. A lot of soldiers will be coming in today. We're counting on you Florence. "}
+        ])
 
     }
 }

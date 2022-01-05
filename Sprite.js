@@ -1,3 +1,5 @@
+import { utils } from "./utils.js";
+
 export class Sprite{
     
     constructor(config){
@@ -61,8 +63,8 @@ export class Sprite{
     }
 
     draw(ctx, cameraPerson){
-        const x = this.gameObject.x - 16;
-        const y = this.gameObject.y - 36;
+        const x = this.gameObject.x - 16 + utils.withGrid(14) - cameraPerson.x;
+        const y = this.gameObject.y - 36 + utils.withGrid(9) - cameraPerson.y;
 
         const[frameX, frameY] = this.frame;
 

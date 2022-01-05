@@ -1,4 +1,5 @@
 import { GameObject } from "./GameObject.js";
+import { utils } from "./utils.js";
 
 export class Person extends GameObject {
     constructor(config){
@@ -40,6 +41,15 @@ export class Person extends GameObject {
             //Walk if it is free
             state.map.moveWall(this.x, this.y, this.direction);
             this.movingProgressRemaining = 32;
+            this.updateSprite(state)
+        }
+
+        if(behaviour.type === "stand"){
+            setTimeout(() => {
+                utils.emitEvent("PersonStandComplete", {
+                    whoId: this.id
+                })
+            }, behaviour.time)
         }
     }
 
@@ -47,6 +57,13 @@ export class Person extends GameObject {
         const [property, change] = this.directionUpdate[this.direction];
         this[property] += change;
         this.movingProgressRemaining -= 1;
+
+        if(this.movingProgressRemaining === 0){
+            //Announce that the walk is finished
+            utils.emitEvent("PersonWalkingComplete", {
+                whoId: this.id
+            })
+        }
 
     }
 

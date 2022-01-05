@@ -17,15 +17,22 @@ export class Overworld {
             this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height)
 
             //Establish camera person here
+            const cameraPerson = this.map.gameObjects.hero;
 
-            // this.map.drawBackground(this.ctx);
-
-            Object.values(this.map.gameObjects).forEach(object =>{
+            //Update all objects
+             Object.values(this.map.gameObjects).forEach(object =>{
                 object.update({
                     arrow: this.directionInput.direction,
                     map: this.map
                 });
-                object.sprite.draw(this.ctx);
+            });
+
+            //Draw background
+            this.map.drawBackground(this.ctx, cameraPerson);
+
+            //
+            Object.values(this.map.gameObjects).forEach(object =>{
+                object.sprite.draw(this.ctx, cameraPerson);
             })
 
             requestAnimationFrame(() => {

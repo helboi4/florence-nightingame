@@ -8,10 +8,15 @@ export class OverworldMap {
         this.walls = config.walls || {};
         this.image = new Image();
         this.image.src = config.imageSrc;
+        this.isCutscenePlaying = false;
     }
 
-    drawBackground(ctx){
-        ctx.drawImage(this.image, 0, 0)
+    drawBackground(ctx, cameraPerson){
+        ctx.drawImage(
+            this.image, 
+            utils.withGrid(14) - cameraPerson.x, 
+            utils.withGrid(9) - cameraPerson.y
+        )
     }
 
     isSpaceTaken(currentX, currentY, direction){
@@ -20,9 +25,13 @@ export class OverworldMap {
     }
 
     mountObjects() {
-        Object.values(this.gameObjects).forEach (o => {
+        Object.keys(this.gameObjects).forEach (key => {
+            
+            let object = this.gameObjects[key]
+            object.id = key;
+
             //TODO: determine if object should mount
-            o.mount(this)
+            object.mount(this)
         })
     }
 
@@ -43,7 +52,7 @@ export class OverworldMap {
 
 window.OverworldMaps = {
     Hospital: {
-        imageSrc: "./images/maps/wood.jpeg",
+        imageSrc: "./images/maps/map.png",
         gameObjects: {
             hero: new Person({
                 isPlayerControlled: true,
@@ -53,7 +62,27 @@ window.OverworldMaps = {
             npc1: new Person({
             x: utils.withGrid(7),
             y: utils.withGrid(9),
-            src: "./images/characters/people/npc1.png"
+            src: "./images/characters/people/npc1.png",
+            behaviourLoop: [
+                {type: "walk", direction: "left"},
+                {type: "stand", direction: "up", time: 800},
+                {type: "walk", direction: "up"},
+                {type: "walk", direction: "right"},
+                {type: "walk", direction: "down"},
+            ]
+            }),
+            npc2: new Person({
+                x: utils.withGrid(3),
+                y: utils.withGrid(7),
+                src: "./images/characters/people/npc2.png",
+                behaviourLoop: [
+                    {type: "stand", direction: "left", time:800},
+                    {type: "stand", direction: "up", time: 800},
+                    {type: "stand", direction: "right", time:1200},
+                    {type: "stand", direction: "left", time: 300},
+                    {type: "stand", direction: "right", time: 600},
+
+                ]
             }),
             box: new GameObject({
                 x: utils.withGrid(12),

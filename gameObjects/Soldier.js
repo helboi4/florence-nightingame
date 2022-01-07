@@ -19,10 +19,11 @@ export class Soldier extends Person {
     update(state){
         super.update(state)
         this.queuingTimeRemaining-=1;
+        this.doBehaviourEvent(state.map);
     }
 
-    async findBed(beds, soldierMap){
-        //returns a behaviour loop array based on AI logic
+    async findBed(beds, map){
+        //assigns a behaviour loop array based on AI logic
         if(!this.inBed){
             const unoccupiedBeds = beds.filter(bed => {
                     return bed.isOccupied === false;
@@ -30,13 +31,13 @@ export class Soldier extends Person {
 
             let targetBed = null;
 
-            const sortedBeds = unoccupiedBeds.sort((a, b) => a.quality - b.price)
+            const sortedBeds = unoccupiedBeds.sort((a, b) => a.quality - b.quality)
 
             targetBed = sortedBeds[0]
 
-            this.behaviourLoop = [{type: "walk", direction: "right"}, {type: "walk", direction: "right"}, {type: "walk", direction: "right"}, {type: "walk", direction: "right"}, {type: "walk", direction: "down"}, {type: "walk", direction: "down"}, {type: "walk", direction: "down"}, {type: "getInBed", direction: "down", coordinates: [targetBed.x, targetBed.y], bed: targetBed}];
+            this.behaviourLoop = [{type: "getInBed", direction: "down", coordinates: [targetBed.x, targetBed.y], bed: targetBed}];
         
-            
+            //{type: "walk", direction: "right"}, {type: "walk", direction: "right"}, {type: "walk", direction: "right"}, {type: "walk", direction: "right"}, {type: "walk", direction: "down"}, {type: "walk", direction: "down"}, {type: "walk", direction: "down"}, 
         }
 
     }

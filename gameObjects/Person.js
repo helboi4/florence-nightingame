@@ -63,7 +63,7 @@ export class Person extends GameObject {
 
         if(behaviour.type === "getInBed"){
 
-            console.log(behaviour)
+            state.map.removeWall(this.x, this.y)
 
             setTimeout(() => {
                 this.x = behaviour.coordinates[0] + 16;

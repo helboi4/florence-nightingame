@@ -24,7 +24,6 @@ export class Overworld {
         })
         //add initial soldiers to map to be drawn
         const initialSoldiers = soldierService.spawnInitialSoldiers();
-        console.log(initialSoldiers["soldier0"].constructor.name)
 
         this.map.gameObjects = Object.assign(this.map.gameObjects, initialSoldiers);
         console.log(this.map.gameObjects)
@@ -34,24 +33,23 @@ export class Overworld {
         }
         )
 
+        
+
         this.map.mountObjects()
 
+        
          
 
         const step = (soldierSpawnInterval) => {
 
-            //calculate current queue of soldiers
             let soldierQueue = Object.values(this.map.gameObjects).filter(object => {
                 return object.constructor.name === "Soldier" && !object.inBed;
             })
-
-            //last soldier in queue finds bed
-            if(!this.map.isCutscenePlaying){
+            if(soldierQueue.length > 0){
                 soldierQueue.pop().findBed(beds, this.map)
             }
 
             this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height)
-
 
             //Establish camera person here
             const cameraPerson = this.map.gameObjects.hero;
@@ -104,8 +102,6 @@ export class Overworld {
         const beds = bedService.populateBeds();
 
         this.map.gameObjects = Object.assign(this.map.gameObjects, beds)
-        console.log(this.map.gameObjects)
-        console.log(this.map.gameObjects["bed01"])
 
         this.startGameLoop();
 

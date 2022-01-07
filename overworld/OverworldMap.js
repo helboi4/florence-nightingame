@@ -74,8 +74,8 @@ window.OverworldMaps = {
         gameObjects: {
             hero: new Person({
                 isPlayerControlled: true,
-                x: utils.withGridX(5),
-                y: utils.withGridY(6),
+                x: utils.withGridX(6),
+                y: utils.withGridY(7),
             }),
         },
         walls : {

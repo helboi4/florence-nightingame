@@ -24,25 +24,40 @@ export class Overworld {
         })
         //add initial soldiers to map to be drawn
         const initialSoldiers = soldierService.spawnInitialSoldiers();
+        console.log(initialSoldiers["soldier0"].constructor.name)
 
         this.map.gameObjects = Object.assign(this.map.gameObjects, initialSoldiers);
         console.log(this.map.gameObjects)
 
+        const beds = Object.values(this.map.gameObjects).filter(object =>{
+            return object.isBed === true;
+        }
+        )
+
         this.map.mountObjects()
+
+         
 
         const step = (soldierSpawnInterval) => {
 
+            //Object.values(this.map.gameObjects).filter(object => object.constructor.name === "Soldier").forEach(soldier => soldier.findBed(beds, this.map))
+
+            if(!this.map.gameObjects["soldier4"].inBed){this.map.gameObjects["soldier4"].findBed(beds, this.map)}
+            
+            
+
             this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height)
+
 
             //Establish camera person here
             const cameraPerson = this.map.gameObjects.hero;
 
             //Update all objects
              Object.values(this.map.gameObjects).forEach(object =>{
-                object.update({
-                    arrow: this.directionInput.direction,
-                    map: this.map
-                });
+                    object.update({
+                        arrow: this.directionInput.direction,
+                        map: this.map
+                    });
             });
 
             //Draw background
@@ -54,6 +69,8 @@ export class Overworld {
             }).forEach(object => {
                 object.sprite.draw(this.ctx, cameraPerson);
             })
+
+            
 
             soldierSpawnInterval++;
 

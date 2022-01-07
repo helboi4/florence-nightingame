@@ -17,7 +17,7 @@ export class SoldierService {
         if(this.dayType === "calm"){
 
             let newX = utils.withGridX(0);
-            let newY = utils.withGridY(1);
+            let newY = utils.withGridY(-2);
 
             for(let i = 0; i < 5; i++){
 

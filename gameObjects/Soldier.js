@@ -1,5 +1,6 @@
 import { Sprite } from "./Sprite.js";
 import {Person} from "./Person.js"
+import { OverworldEvent } from "../overworld/OverworldEvent.js";
 
 export class Soldier extends Person {
     constructor(config){
@@ -11,25 +12,28 @@ export class Soldier extends Person {
             src: `/images/characters/soldiers/${this.condition}.png`
         });
         this.inBed = false;
-        this.behaviourLoop = [] //this.findBed() || [];
+        this.behaviourLoop = [];
     }
 
-    findBed(beds){
+    async findBed(beds, soldierMap){
         //returns a behaviour loop array based on AI logic
-        const unoccupiedBeds = beds.filter(bed => {
-            bed.isOccupied = false;
-        })
+        if(!this.inBed){
+            const unoccupiedBeds = beds.filter(bed => {
+                    return bed.isOccupied === false;
+            })
 
-        let targetBed = null;
+            let targetBed = null;
 
-        const sortedBeds = unoccupiedBeds.sort((a, b) => a.quality - b.price)
+            const sortedBeds = unoccupiedBeds.sort((a, b) => a.quality - b.price)
 
-        targetBed = sortedBeds[0]
+            targetBed = sortedBeds[0]
 
-        //TODO: Start a behaviour where the soldier moves into the room
+            this.behaviourLoop = [{type: "walk", direction: "right"}, {type: "walk", direction: "right"}, {type: "walk", direction: "right"}, {type: "walk", direction: "right"}, {type: "walk", direction: "down"}, {type: "walk", direction: "down"}, {type: "walk", direction: "down"}, {type: "getInBed", direction: "down", coordinates: [targetBed.x, targetBed.y], bed: targetBed}];
+        
 
-        this.x = targetBed.x;
-        this.y = targetBed.y;
+            
+        }
+
     }
 
     proceedInQueue(){

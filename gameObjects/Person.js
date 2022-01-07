@@ -37,7 +37,7 @@ export class Person extends GameObject {
         this.direction = behaviour.direction;
         if(behaviour.type === "walk"){
             //Stop if space is not free
-            if(state.map.isSpaceTaken(this.x, this.y, this.direction)){
+            if(state.map.isSpaceTaken(this.x, this.y, this.direction) === -1){
 
                 behaviour.retry && setTimeout(() => {
                     this.startBehaviour(state, behaviour)
@@ -59,6 +59,19 @@ export class Person extends GameObject {
                 })
                 this.isStanding = false;
             }, behaviour.time)
+        }
+
+        if(behaviour.type === "getInBed"){
+
+            console.log(behaviour)
+
+            setTimeout(() => {
+                this.x = behaviour.coordinates[0] + 16;
+                this.y = behaviour.coordinates[1];
+                behaviour.bed.isOccupied = true;
+            }, 400
+            )
+            
         }
     }
 

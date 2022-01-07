@@ -54,6 +54,32 @@ export class OverworldEvent {
         document.addEventListener("PersonWalkingComplete", completeHandler)
     }
 
+    getInBed(resolve){
+        const who = this.map.gameObjects[this.event.who];
+        who.startBehaviour( 
+            { 
+                map: this.map
+            }, 
+            {
+                type: "getInBed",
+                direction: this.event.direction,
+                retry: true,
+                coordinates: this.event.coordinates,
+                bed: this.event.bed
+            }
+        )
+
+        const completeHandler = e => {
+            
+            if(e.detail.whoId === this.event.who){
+                document.removeEventListener("SoldierGetInBedComplete", completeHandler);
+                resolve();
+            }
+        }
+
+        document.addEventListener("SoldierGetInBedComplete", completeHandler)
+    }
+
     textMessage(resolve){
         const message = new TextMessage({
             text: this.event.text,

@@ -22,17 +22,16 @@ export class OverworldMap {
 
     isSpaceTaken(currentX, currentY, direction){
         const {x,y} = utils.nextPosition(currentX, currentY, direction);
-        return this.walls[`${x},${y}`] || false;
+        return this.walls[`${x},${y}`] || 0;
     }
 
     mountObjects() {
-        Object.keys(this.gameObjects).forEach (key => {
-            
-            let object = this.gameObjects[key]
-            object.id = key;
+        Object.keys(this.gameObjects).forEach (key => {   
+                let object = this.gameObjects[key]
+                object.id = key;
 
-            //TODO: determine if object should mount
-            object.mount(this)
+                //TODO: determine if object should mount
+                object.mount(this)
         })
     }
 
@@ -55,7 +54,7 @@ export class OverworldMap {
     }
 
     addWall(x, y){
-        this.walls[`${x},${y}`] = true;
+        this.walls[`${x},${y}`] = -1;
     }
 
     removeWall(x,y){
@@ -78,11 +77,6 @@ window.OverworldMaps = {
                 x: utils.withGridX(5),
                 y: utils.withGridY(6),
             }),
-            box: new GameObject({
-                x: utils.withGridX(12),
-                y: utils.withGridY(4),
-                src: "./images/characters/box.png"
-            })
         },
         walls : {
             [utils.asGridCoord(12,4)] : true,

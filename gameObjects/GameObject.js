@@ -20,7 +20,7 @@ export class GameObject {
             noSheet: this.isBed
         });
 
-        this.isOccupied = false;
+        
     }
 
     mount(map){
@@ -60,7 +60,9 @@ export class GameObject {
         }
 
         //Next iteration of the loop
+
         this.doBehaviourEvent(map)
+
     }
 
 }

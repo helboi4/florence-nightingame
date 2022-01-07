@@ -14,13 +14,13 @@ export class Sprite{
         //configuring animation an inital state
         this.animations = config.animations || {
             "idle-down": [[0,0]],
-            "idle-right": [[0,1]],
-            "idle-up": [[0,2]],
-            "idle-left": [[0,3]],
-            "walk-down": [[1,0], [0,0], [3,0], [0,0]],
-            "walk-right": [[1,1], [0,1], [3,1], [0,1]],
-            "walk-up": [[1,2], [0,2], [3,2], [0,2]],
-            "walk-left": [[1,3], [0,3], [3,3], [0,3]]
+            "idle-right": [[0,0]],
+            "idle-up": [[0,0]],
+            "idle-left": [[0,0]],
+            "walk-down": [[0,0]],
+            "walk-right": [[0,0]],
+            "walk-up": [[0,0]],
+            "walk-left": [[0,0]]
         }
 
         this.currentAnimation = config.currentAnimation || "idle-down";
@@ -31,6 +31,7 @@ export class Sprite{
 
         //Reference the game object
         this.gameObject = config.gameObject;
+        this.noSheet = config.noSheet;
     }
 
     get frame() {
@@ -63,19 +64,29 @@ export class Sprite{
     }
 
     draw(ctx, cameraPerson){
-        const x = this.gameObject.x - 16 + utils.withGrid(14) - cameraPerson.x;
-        const y = this.gameObject.y - 36 + utils.withGrid(9) - cameraPerson.y;
+        const x = this.gameObject.x + 30 +  utils.withGridX(7) - cameraPerson.x;
+        const y = this.gameObject.y  - 64 + utils.withGridY(4.5) - cameraPerson.y;
 
-        const[frameX, frameY] = this.frame;
+        if(this.noSheet){
+            this.isLoaded && ctx.drawImage(this.image,
+            0,0,
+            121, 174,
+            x - 5,y - 16,
+            85,
+            128)
+        } else{
 
-        this.isLoaded && ctx.drawImage(this.image,
-            frameX * 32,frameY * 32,
-            32, 32,
-            x,y,
-            64,
-            64)
+            const[frameX, frameY] = this.frame;
 
-        this.updateAnimationProgress();
+            this.isLoaded && ctx.drawImage(this.image,
+                frameX * 60,frameY * 120,
+                60, 120,
+                x,y,
+                50,
+                90)
+
+            this.updateAnimationProgress();
+        }
     }
 
 }

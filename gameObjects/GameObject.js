@@ -9,13 +9,18 @@ export class GameObject {
         this.x = config.x || 0;
         this.y = config.y || 0;
         this.direction = config.direction || "down";
-        this.sprite = new Sprite({
-            gameObject: this,
-            src: config.src || "/images/characters/people/hero.png"
-        });
-
+        
         this.behaviourLoop = config.behaviourLoop || [];
         this.behaviourLoopIndex = 0;
+        this.isBed = config.isBed || false;
+
+        this.sprite = new Sprite({
+            gameObject: this,
+            src: config.src || "/images/characters/people/hero.png",
+            noSheet: this.isBed
+        });
+
+        this.isOccupied = false;
     }
 
     mount(map){

@@ -1,6 +1,8 @@
 import { DirectionInput } from "../utils/DirectionInput.js";
 import { GameObject } from "../gameObjects/GameObject.js";
 import { OverworldMap } from "./OverworldMap.js";
+import {SoldierService} from "./SoldierService.js"
+import { BedService } from "./BedService.js";
 
 export class Overworld {
     constructor(config){
@@ -9,10 +11,26 @@ export class Overworld {
         this.ctx = this.canvas.getContext("2d");
         this.map = null;
         this.directionInput = null;
+        this.dayType = "calm"
     }
 
     startGameLoop() {
-        const step = () => {
+
+        let soldierSpawnInterval = 0;
+
+        const soldierService = new SoldierService({
+            map: this.map,
+            dayType: this.dayType
+        })
+        //add initial soldiers to map to be drawn
+        const initialSoldiers = soldierService.spawnInitialSoldiers();
+
+        this.map.gameObjects = Object.assign(this.map.gameObjects, initialSoldiers);
+        console.log(this.map.gameObjects)
+
+        this.map.mountObjects()
+
+        const step = (soldierSpawnInterval) => {
 
             this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height)
 
@@ -37,20 +55,36 @@ export class Overworld {
                 object.sprite.draw(this.ctx, cameraPerson);
             })
 
+            soldierSpawnInterval++;
+
+            // if(soldierSpawnInterval === 100){
+            //     SoldierService.spawnNewSoldier();
+            //     soldierSpawnInterval = 0;
+            // }
+
             requestAnimationFrame(() => {
-                step();
+                step(soldierSpawnInterval);
             })
+
+            
         }
-        step();
+        step(soldierSpawnInterval);
     }
 
     init(){
 
         this.map = new OverworldMap(window.OverworldMaps.Hospital);
-        this.map.mountObjects()
+
 
         this.directionInput = new DirectionInput();
         this.directionInput.init();
+
+        const bedService = new BedService();
+        const beds = bedService.populateBeds();
+
+        this.map.gameObjects = Object.assign(this.map.gameObjects, beds)
+        console.log(this.map.gameObjects)
+        console.log(this.map.gameObjects["bed01"])
 
         this.startGameLoop();
 

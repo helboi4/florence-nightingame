@@ -15,8 +15,8 @@ export class OverworldMap {
     drawBackground(ctx, cameraPerson){
         ctx.drawImage(
             this.image, 
-            utils.withGrid(14) - cameraPerson.x, 
-            utils.withGrid(9) - cameraPerson.y
+            utils.mapPlacement(7) - cameraPerson.x, 
+            utils.mapPlacement(4.5) - cameraPerson.y
         )
     }
 
@@ -71,41 +71,16 @@ export class OverworldMap {
 
 window.OverworldMaps = {
     Hospital: {
-        imageSrc: "./images/maps/map.png",
+        imageSrc: "./images/maps/background-grid.png",
         gameObjects: {
             hero: new Person({
                 isPlayerControlled: true,
-                x: utils.withGrid(5),
-                y: utils.withGrid(6),
-            }),
-            npc1: new Person({
-            x: utils.withGrid(7),
-            y: utils.withGrid(9),
-            src: "./images/characters/people/npc1.png",
-            behaviourLoop: [
-                {type: "walk", direction: "left"},
-                {type: "stand", direction: "up", time: 800},
-                {type: "walk", direction: "up"},
-                {type: "walk", direction: "right"},
-                {type: "walk", direction: "down"},
-            ]
-            }),
-            npc2: new Person({
-                x: utils.withGrid(3),
-                y: utils.withGrid(7),
-                src: "./images/characters/people/npc2.png",
-                behaviourLoop: [
-                    {type: "stand", direction: "left", time:800},
-                    {type: "stand", direction: "up", time: 800},
-                    {type: "stand", direction: "right", time:1200},
-                    {type: "stand", direction: "left", time: 300},
-                    {type: "stand", direction: "right", time: 600},
-
-                ]
+                x: utils.withGridX(5),
+                y: utils.withGridY(6),
             }),
             box: new GameObject({
-                x: utils.withGrid(12),
-                y: utils.withGrid(4),
+                x: utils.withGridX(12),
+                y: utils.withGridY(4),
                 src: "./images/characters/box.png"
             })
         },

@@ -1,5 +1,13 @@
 export const utils = {
-    withGrid(n) {
+    withGridX(n) {
+        return n * 32 + 240;
+    },
+
+    withGridY(n){
+        return n * 32 + 160;
+    },
+
+    mapPlacement(n){
         return n * 32;
     },
 

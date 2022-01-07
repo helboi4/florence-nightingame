@@ -40,11 +40,15 @@ export class Overworld {
 
         const step = (soldierSpawnInterval) => {
 
-            //Object.values(this.map.gameObjects).filter(object => object.constructor.name === "Soldier").forEach(soldier => soldier.findBed(beds, this.map))
+            //calculate current queue of soldiers
+            let soldierQueue = Object.values(this.map.gameObjects).filter(object => {
+                return object.constructor.name === "Soldier" && !object.inBed;
+            })
 
-            if(!this.map.gameObjects["soldier4"].inBed){this.map.gameObjects["soldier4"].findBed(beds, this.map)}
-            
-            
+            //last soldier in queue finds bed
+            if(!this.map.isCutscenePlaying){
+                soldierQueue.pop().findBed(beds, this.map)
+            }
 
             this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height)
 

@@ -69,6 +69,7 @@ export class Person extends GameObject {
                 this.x = behaviour.coordinates[0] + 16;
                 this.y = behaviour.coordinates[1];
                 behaviour.bed.isOccupied = true;
+                this.inBed = true;
             }, 400
             )
             

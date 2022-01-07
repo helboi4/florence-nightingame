@@ -13,6 +13,12 @@ export class Soldier extends Person {
         });
         this.inBed = false;
         this.behaviourLoop = [];
+        this.queuingTimeRemaining = 60000;
+    }
+
+    update(state){
+        super.update(state)
+        this.queuingTimeRemaining-=1;
     }
 
     async findBed(beds, soldierMap){
@@ -30,14 +36,15 @@ export class Soldier extends Person {
 
             this.behaviourLoop = [{type: "walk", direction: "right"}, {type: "walk", direction: "right"}, {type: "walk", direction: "right"}, {type: "walk", direction: "right"}, {type: "walk", direction: "down"}, {type: "walk", direction: "down"}, {type: "walk", direction: "down"}, {type: "getInBed", direction: "down", coordinates: [targetBed.x, targetBed.y], bed: targetBed}];
         
-
             
         }
 
     }
 
     proceedInQueue(){
-        //TODO: make soldier check if they can move forward in queue and then move when possible
+        if(map.isSpaceTaken(this.x, this.y, "right") === 0){
+            this.behaviourLoop = [{type: "walk", direction: "right"}, {type: "stand", time: this.queuingTimeRemaining}]
+        }
 
     }
 

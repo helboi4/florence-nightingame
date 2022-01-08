@@ -16,8 +16,8 @@ export class SoldierService {
     
         if(this.dayType === "calm"){
 
-            let newX = utils.withGridX(0);
-            let newY = utils.withGridY(-2);
+            let newX = 496;
+            let newY = 96;
 
             for(let i = 0; i < 5; i++){
 
@@ -34,7 +34,7 @@ export class SoldierService {
 
                 soldiers[`soldier${i}`] = soldier;
 
-                newX = newX + 64;
+                newX = newX - 64;
             }
         }
 
@@ -58,7 +58,7 @@ export class SoldierService {
 
                 soldiers[`soldier${i}`] = soldier;
 
-                newX = newX + 64;
+                newX = newX - 64;
             }
 
             for(let i = 4; i < 9; i++){
@@ -76,7 +76,7 @@ export class SoldierService {
 
                 soldiers[`soldier${i}`] = soldier;
 
-                newX = newX + 64;
+                newX = newX - 64;
             }
         }
 
@@ -99,7 +99,7 @@ export class SoldierService {
 
                 soldiers[`soldier${i}`] = soldier;
 
-                newX = newX + 64;
+                newX = newX - 64;
             }
 
             for(let i = 5; i < 9; i++){
@@ -117,7 +117,7 @@ export class SoldierService {
 
                 soldiers[`soldier${i}`] = soldier;
 
-                newX = newX + 64;
+                newX = newX - 64;
             }
 
         }
@@ -125,6 +125,47 @@ export class SoldierService {
         return soldiers;
         //We have created an object full of soldiers which we then need to add to the map in Overworld.
     }
+
+    spawnNewSoldier(map, soldierQueue, soldierCount){
+
+        let success = false;
+
+        if(soldierQueue.length > 0){
+            let newSoldier = new Soldier({
+                id: `soldier${soldierCount}`,
+                x: soldierQueue[soldierQueue.length-1].x - 64,
+                y: soldierQueue[soldierQueue.length-1].y,
+                direction: "down",
+                condition: this.generateCondition()
+            })
+            this.map.gameObjects[`soldier${soldierCount}`] = newSoldier;
+            this.map.gameObjects[`soldier${soldierCount}`].mount(map);
+            console.log(this.map.gameObjects[`soldier${soldierCount}`])
+            success = true;
+            return success;
+        }
+        else{
+            let newSoldier = new Soldier({
+                id: `soldier${soldierCount}`,
+                x: 496,
+                y: 96,
+                direction: "down",
+                condition: this.generateCondition(),
+            })
+            this.map.gameObjects[`soldier${soldierCount}`] = newSoldier;
+            this.map.gameObjects[`soldier${soldierCount}`].mount(map);
+            console.log(this.map.gameObjects[`soldier${soldierCount}`])
+            success = true;
+            return success;
+        }
+
+    }
     
+    generateCondition(){
+        let conditionIndex = Math.floor(Math.random() * this.startingConditions.length);
+        let newCondition = this.startingConditions[conditionIndex];
+        return newCondition;
+
+    }
 
 }

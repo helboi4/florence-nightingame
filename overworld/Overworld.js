@@ -3,6 +3,7 @@ import { GameObject } from "../gameObjects/GameObject.js";
 import { OverworldMap } from "./OverworldMap.js";
 import {SoldierService} from "./SoldierService.js"
 import { BedService } from "./BedService.js";
+import { Soldier } from "../gameObjects/Soldier.js";
 
 export class Overworld {
     constructor(config){
@@ -37,16 +38,26 @@ export class Overworld {
 
         this.map.mountObjects()
 
-        
-         
+        let soldierCount = 5;
 
         const step = (soldierSpawnInterval) => {
 
             let soldierQueue = Object.values(this.map.gameObjects).filter(object => {
                 return object.constructor.name === "Soldier" && !object.inBed;
             })
+
+
+            if(soldierSpawnInterval === 1000 && !this.map.isCutscenePlaying){
+                let check = soldierService.spawnNewSoldier(this.map, soldierQueue, soldierCount)
+                if(check){
+                    soldierCount++;
+                    soldierSpawnInterval = 0;
+                }
+                
+            }
             if(soldierQueue.length > 0){
-                soldierQueue.pop().findBed(beds, this.map)
+                setTimeout(() => {soldierQueue.shift().findBed(beds, this.map)},800)
+                
             }
 
             this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height)
@@ -84,7 +95,6 @@ export class Overworld {
             requestAnimationFrame(() => {
                 step(soldierSpawnInterval);
             })
-
             
         }
         step(soldierSpawnInterval);

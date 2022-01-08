@@ -4,7 +4,7 @@ import { OverworldEvent } from "../overworld/OverworldEvent.js";
 export class GameObject {
 
     constructor(config){
-        this.id = null;
+        this.id = config.id || null;
         this.isMounted = false;
         this.x = config.x || 0;
         this.y = config.y || 0;
@@ -35,6 +35,11 @@ export class GameObject {
 
     }
 
+    unmount(map){
+        this.isMounted = false;
+        map.removeWall(this.x, this.y)
+    }
+
     update(){
 
     }
@@ -42,7 +47,7 @@ export class GameObject {
     async doBehaviourEvent(map){
 
         //Don't loop if cutscene is happening or there is no loop
-        if(map.isCutscenePlaying || this.behaviourLoop.length === 0 || this.isStanding){
+        if(map.isCutscenePlaying || this.behaviourLoop.length === 0 || this.isStanding || this.inBed){
             return;
         }
 

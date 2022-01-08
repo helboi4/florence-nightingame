@@ -2,14 +2,19 @@ import { GameObject } from "../gameObjects/GameObject.js";
 import { utils } from "../utils/utils.js";
 import { Person } from "../gameObjects/Person.js";
 import { OverworldEvent } from "./OverworldEvent.js";
+import { Stain } from "../gameObjects/Stain.js";
+import { Sprite } from "../gameObjects/Sprite.js";
 
 export class OverworldMap {
     constructor(config){
         this.gameObjects = config.gameObjects;
         this.walls = config.walls || {};
+        this.stains = config.stains || {};
         this.image = new Image();
         this.image.src = config.imageSrc;
         this.isCutscenePlaying = false;
+        this.deaths = 0;
+        this.cures = 0;
     }
 
     drawBackground(ctx, cameraPerson){
@@ -75,11 +80,13 @@ window.OverworldMaps = {
             hero: new Person({
                 isPlayerControlled: true,
                 x: utils.withGridX(6),
-                y: utils.withGridY(7),
+                y: utils.withGridY(5),
             }),
         },
         walls : {
             [utils.asGridCoord(12,4)] : true,
-        }
+        },
+        stains: {
+        },
     }
 }

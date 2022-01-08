@@ -63,7 +63,6 @@ export class OverworldEvent {
             {
                 type: "getInBed",
                 direction: this.event.direction,
-                retry: true,
                 coordinates: this.event.coordinates,
                 bed: this.event.bed
             }
